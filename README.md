@@ -40,14 +40,17 @@ mix deployment.deploy production
 
 This checks the following:
 * is a release available of the current version of the application?
-* is the applicatiojn running on the remote host?
+* is the application running on the remote host?
 * if so, is it possible to upgrade from the local release from the current state?
 * if not, exdm will try to run the initial deployment.
 
 # Other tasks
 
 ```
-mix deployment.remote     # prints the version running on the remote host
-mix deployment.local      # prints the latest release version built locally
-mix deployment.can_deploy # are we ready to deploy?
+mix deployment.local              # prints the latest release version built locally
+mix deployment.remote {stage}     # prints the version running on the remote host
+mix deployment.can_deploy {stage} # are we ready to deploy?
+mix deployment.start {stage}      # start the application
+mix deployment.stop {stage}       # stop the application
+mix deployment.is_running {stage} # stop the application
 ```
