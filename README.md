@@ -14,7 +14,11 @@ exdm allows the definition of multiple stages for your appplication, e.g.
 # Usage
 
 deps:
-...
+```
+defp deps do
+  [{:exdm, "~> 0.0.1"}]
+end
+```
 
 Add a section to your application config:
 ```
