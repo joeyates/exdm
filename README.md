@@ -1,9 +1,11 @@
 # exdm - Elixir Deployment Manager
 
 [![Build Status](https://api.travis-ci.org/joeyates/exdm.svg)][Continuous Integration]
+[![Hex.pm Version](http://img.shields.io/hexpm/v/exdm.svg)][Hex Package]
 
 [Source Code]: https://github.com/joeyates/exdm "Source code at GitHub"
 [Continuous Integration]: http://travis-ci.org/joeyates/exdm "Build status by Travis-CI"
+[Hex Package]: https://hex.pm/packages/exdm "Hex Package"
 
 exdm is intended to complement [exrm](https://hexdocs.pm/exrm/extra-getting-started.html),
 by simplifying deployment of releases.
