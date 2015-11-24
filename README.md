@@ -59,5 +59,5 @@ mix deployment.remote {stage}     # prints the version running on the remote hos
 mix deployment.can_deploy {stage} # are we ready to deploy?
 mix deployment.start {stage}      # start the application
 mix deployment.stop {stage}       # stop the application
-mix deployment.is_running {stage} # stop the application
+mix deployment.is_running {stage} # prints yes/no/error
 ```
