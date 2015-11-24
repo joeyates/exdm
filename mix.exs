@@ -12,6 +12,7 @@ defmodule Exdm.Mixfile do
      source_url: "https://github.com/joeyates/exdm",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     test_coverage: [tool: Coverex.Task, coveralls: true],
      deps: deps]
   end
 
@@ -34,7 +35,10 @@ defmodule Exdm.Mixfile do
   defp deps do
     [
       {:exrm, "~> 0.19.9"},
-      {:meck, "~> 0.8.3", only: :test}
+      {:meck, "~> 0.8.3", only: :test},
+      {:coverex, "~> 1.4", only: :test},
+      # hackney (coverex dep-dep) doesn't compile under test without this:
+      {:cowboy, "1.0.4", only: :test}
     ]
   end
 end
