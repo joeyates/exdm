@@ -21,11 +21,11 @@ defmodule Exdm.Remote do
     if String.contains?(response, "\npong\n") do
       {:ok, :yes}
     else
-      {:error, :no}
+      {:ok, :no}
     end
   end
   defp handle_ping({:error, response, exit_code}) do
-    {:error, response, exit_code}
+    {:error, "got error response, exit code: #{exit_code}, message: #{response}"}
   end
 
   defp execute_boot_script_command(stage, args) do

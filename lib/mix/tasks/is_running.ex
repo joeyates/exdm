@@ -9,7 +9,10 @@ defmodule Mix.Tasks.Deployment.IsRunning do
   defp handle_is_running({:ok, :yes}) do
     IO.puts "yes"
   end
-  defp handle_is_running({:error, _response, _exit_code}) do
+  defp handle_is_running({:ok, :no}) do
     IO.puts "no"
+  end
+  defp handle_is_running({:error, _reason}) do
+    IO.puts "error"
   end
 end
