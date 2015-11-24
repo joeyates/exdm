@@ -17,7 +17,8 @@ defmodule Exdm.Local do
   end
 
   def can_transition_from(version) do
-    check_transition(handle_relup(:file.consult(relup_path)), version)
+    handle_relup(:file.consult(relup_path))
+    |> check_transition(version)
   end
 
   defp relup_path do
