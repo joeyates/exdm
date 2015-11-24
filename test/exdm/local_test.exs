@@ -6,6 +6,11 @@ defmodule Exdm.LocalTest do
   @previous_version     "0.2.2"
   @local_version        "0.2.3"
   @relup_path           "/baz/relup"
+  @relup                [{
+    String.to_char_list(@local_version),
+    [{String.to_char_list(@previous_version), [], [:point_of_no_return]}],
+    [{String.to_char_list(@previous_version), [], [:point_of_no_return]}]
+  }]
 
   test "get_version/0 returns the version of the latest local release", _context do
     :meck.expect(Mix.Project, :config, fn -> %{app: @app_name} end)
@@ -22,13 +27,8 @@ defmodule Exdm.LocalTest do
 
   test "can_transition_from/1 succeeds if the local relup transitions to the supplied version" do
     :meck.expect(ReleaseManager.Utils, :rel_dest_path, fn _ -> @relup_path end)
-    relup = [{
-      String.to_char_list(@local_version), 
-      [{String.to_char_list(@previous_version), [], [:point_of_no_return]}],
-      [{String.to_char_list(@previous_version), [], [:point_of_no_return]}]
-    }]
     :meck.new(:file, [:unstick, :passthrough])
-    :meck.expect(:file, :consult, fn @relup_path -> {:ok, relup} end)
+    :meck.expect(:file, :consult, fn @relup_path -> {:ok, @relup} end)
 
     {result} = Exdm.Local.can_transition_from(@previous_version)
 
@@ -36,6 +36,33 @@ defmodule Exdm.LocalTest do
     :meck.unload(ReleaseManager.Utils)
 
     assert result == :ok
+  end
+
+  test "can_transition_from/1 fails if the local version is already deployed" do
+    :meck.expect(ReleaseManager.Utils, :rel_dest_path, fn _ -> @relup_path end)
+    :meck.new(:file, [:unstick, :passthrough])
+    :meck.expect(:file, :consult, fn @relup_path -> {:ok, @relup} end)
+
+    {:error, reason} = Exdm.Local.can_transition_from(@local_version)
+
+    :meck.unload(:file)
+    :meck.unload(ReleaseManager.Utils)
+
+    assert reason == "The currently available release (#{@local_version}) is already deployed"
+  end
+
+  test "can_transition_from/1 fails if the relup previous version does not match the remote version" do
+    :meck.expect(ReleaseManager.Utils, :rel_dest_path, fn _ -> @relup_path end)
+    :meck.new(:file, [:unstick, :passthrough])
+    :meck.expect(:file, :consult, fn @relup_path -> {:ok, @relup} end)
+
+    another_version = "9.9.9"
+    {:error, reason} = Exdm.Local.can_transition_from(another_version)
+
+    :meck.unload(:file)
+    :meck.unload(ReleaseManager.Utils)
+
+    assert reason == "The currently available release updates from version #{@previous_version} to version #{@local_version}, but the deployed version is #{another_version}"
   end
 
   test "can_transition_from/1 fails if the local relup is missing" do
