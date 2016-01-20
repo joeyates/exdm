@@ -1,4 +1,9 @@
 defmodule Exdm do
+
+  @doc """
+  Deploys a local release, build with exrm, to the indicated stage.
+  """
+
   def deploy(stage) do
     config = Exdm.Config.load!(stage)
     Exdm.Connection.upload(stage, release_tarball, remote_release_path!(config))

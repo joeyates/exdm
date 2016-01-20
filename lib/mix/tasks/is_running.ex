@@ -1,7 +1,8 @@
 defmodule Mix.Tasks.Deployment.IsRunning do
   use Mix.Task
 
-  @shortdoc "Indicates wheteher the application is running on the host"
+  @shortdoc "Indicates whether the application is running on the stage"
+
   def run([stage]) do
     handle_is_running(Exdm.Remote.is_running?(String.to_atom(stage)))
   end

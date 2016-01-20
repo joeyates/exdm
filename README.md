@@ -7,16 +7,18 @@
 [Continuous Integration]: http://travis-ci.org/joeyates/exdm "Build status by Travis-CI"
 [Hex Package]: https://hex.pm/packages/exdm "Hex Package"
 
-exdm is intended to complement [exrm](https://hexdocs.pm/exrm/extra-getting-started.html),
-by simplifying deployment of releases.
+exdm is intended to complement [exrm], by simplifying deployment of releases.
 
-exdm provides a set of mix tasks to deploy applications, check their status and
+
+It provides a set of mix tasks to deploy applications, check their status and
 start and stop them.
 
 Releases created by exrm are pushed to remote servers and applications can be upgraded.
 
-exdm allows the definition of multiple stages for your appplication, e.g.
+exdm allows the definition of multiple stages for your application, e.g.
 `production`, `staging` and `ci`.
+
+[exrm]: https://hexdocs.pm/exrm/extra-getting-started.html "exrm Documentation"
 
 # Usage
 
@@ -60,4 +62,15 @@ mix deployment.can_deploy {stage} # are we ready to deploy?
 mix deployment.start {stage}      # start the application
 mix deployment.stop {stage}       # stop the application
 mix deployment.is_running {stage} # prints yes/no/error
+```
+
+# exdm Development
+
+## Tests
+
+exdm's tests use the 'espec' library.
+
+Run tests:
+```
+mix espec
 ```
