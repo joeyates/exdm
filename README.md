@@ -22,7 +22,22 @@ exdm allows the definition of multiple stages for your application, e.g.
 
 # Usage
 
-deps:
+Build the release using [exrm]:
+
+```
+MIX_ENV=prod mix release
+```
+
+Deploy:
+
+```
+mix deployment.deploy production
+```
+
+# Configuration
+
+Add exdm to your deps in `mix.exs`:
+
 ```
 defp deps do
   [{:exdm, "~> 0.0.1"}]
@@ -36,22 +51,6 @@ config :exdm, :production,
   user: "deploy",
   application_path: "/srv/my_app"
 ```
-
-Build the release using exrm:
-
-```
-MIX_ENV=prod mix release
-```
-
-```
-mix deployment.deploy production
-```
-
-This checks the following:
-* is a release available of the current version of the application?
-* is the application running on the remote host?
-* if so, is it possible to upgrade from the local release from the current state?
-* if not, exdm will try to run the initial deployment.
 
 # Other tasks
 
