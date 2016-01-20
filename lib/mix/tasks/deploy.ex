@@ -1,8 +1,6 @@
 defmodule Mix.Tasks.Deployment.Deploy do
   use Mix.Task
 
-  @shortdoc "Deploys to the given stage"
-
   @moduledoc """
   Deploys to a stage.
 
@@ -16,6 +14,8 @@ defmodule Mix.Tasks.Deployment.Deploy do
   * if so, is it possible to upgrade from the local release from the currently
     deployed one?
   """
+
+  @shortdoc "Deploys to the given stage"
 
   def run([stage]) do
     stage = String.to_atom(stage)
