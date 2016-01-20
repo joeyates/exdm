@@ -15,6 +15,6 @@ defmodule Mix.Tasks.Deployment.RemoteSpec do
       Mix.Tasks.Deployment.Remote.run(["stage"])
     end)
 
-    expect result |> to eq remote_version <> "\n"
+    expect result |> to(eq remote_version <> "\n")
   end
 end

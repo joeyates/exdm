@@ -21,7 +21,7 @@ defmodule Mix.Tasks.Deployment.DeploySpec do
     it "deploys" do
       Mix.Tasks.Deployment.Deploy.run([stage])
 
-      expect Exdm |> to accepted :deploy, [stage_atom]
+      expect Exdm |> to(accepted :deploy, [stage_atom])
     end
   end
 
@@ -31,7 +31,7 @@ defmodule Mix.Tasks.Deployment.DeploySpec do
     it "fails" do
       Mix.Tasks.Deployment.Deploy.run([stage])
 
-      expect Exdm |> to_not accepted :deploy, [stage_atom]
+      expect Exdm |> to_not(accepted :deploy, [stage_atom])
     end
   end
 end

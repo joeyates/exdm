@@ -21,7 +21,7 @@ defmodule Exdm.ConfigSpec do
       it "returns exdm configuration" do
         {:ok, result} = Exdm.Config.load(stage)
 
-        expect result |> to eq config
+        expect result |> to(eq config)
       end
     end
 
@@ -29,7 +29,7 @@ defmodule Exdm.ConfigSpec do
       it "fails" do
         {:error, reason} = Exdm.Config.load(stage)
 
-        expect reason |> to eq :no_env
+        expect reason |> to(eq :no_env)
       end
     end
   end
@@ -42,14 +42,14 @@ defmodule Exdm.ConfigSpec do
       it "returns exdm configuration" do
         result = Exdm.Config.load!(stage)
 
-        expect result |> to eq config
+        expect result |> to(eq config)
       end
     end
 
     context "when there is no exdm configuration" do
       it "raises" do
         expect do: fn -> Exdm.Config.load!(stage) end
-        |> to raise_exception Exdm.Config.ConfigurationNotFoundError
+        |> to(raise_exception Exdm.Config.ConfigurationNotFoundError)
       end
     end
   end
@@ -58,7 +58,7 @@ defmodule Exdm.ConfigSpec do
     it "returns the application_path" do
       {:ok, result} = Exdm.Config.application_path(config)
 
-      expect result |> to eq application_path
+      expect result |> to(eq application_path)
     end
 
     context "when there is no application_path" do
@@ -66,7 +66,7 @@ defmodule Exdm.ConfigSpec do
         config = Keyword.drop(config, [:application_path])
         {:error, reason} = Exdm.Config.application_path(config)
 
-        expect reason |> to eq :no_application_path
+        expect reason |> to(eq :no_application_path)
       end
     end
   end
@@ -75,7 +75,7 @@ defmodule Exdm.ConfigSpec do
     it "returns the application_path" do
       result = Exdm.Config.application_path!(config)
 
-      expect result |> to eq application_path
+      expect result |> to(eq application_path)
     end
 
     context "when there is no application_path" do
@@ -83,7 +83,7 @@ defmodule Exdm.ConfigSpec do
         config = Keyword.drop(config, [:application_path])
 
         expect do: fn -> Exdm.Config.application_path!(config) end
-        |> to raise_exception Exdm.Config.ValueNotSetError
+        |> to(raise_exception Exdm.Config.ValueNotSetError)
       end
     end
   end
@@ -92,7 +92,7 @@ defmodule Exdm.ConfigSpec do
     it "combines user and host" do
       {:ok, result} = Exdm.Config.user_and_host(config)
 
-      expect result |> to eq(user <> "@" <> host)
+      expect result |> to(eq user <> "@" <> host)
     end
 
     context "when there is no host" do
@@ -100,7 +100,7 @@ defmodule Exdm.ConfigSpec do
         config = Keyword.drop(config, [:host])
         {:error, reason} = Exdm.Config.user_and_host(config)
 
-        expect reason |> to eq :no_host
+        expect reason |> to(eq :no_host)
       end
     end
 
@@ -109,7 +109,7 @@ defmodule Exdm.ConfigSpec do
         config = Keyword.drop(config, [:user])
         {:ok, result} = Exdm.Config.user_and_host(config)
 
-        expect result |> to eq host
+        expect result |> to(eq host)
       end
     end
   end

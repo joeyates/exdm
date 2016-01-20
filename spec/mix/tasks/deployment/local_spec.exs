@@ -12,6 +12,6 @@ defmodule Mix.Tasks.Deployment.LocalSpec do
       Mix.Tasks.Deployment.Local.run([])
     end)
 
-    expect result |> to eq local_version <> "\n"
+    expect result |> to(eq local_version <> "\n")
   end
 end

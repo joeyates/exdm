@@ -14,7 +14,7 @@ defmodule Mix.Tasks.Deployment.IsRunningSpec do
         Mix.Tasks.Deployment.IsRunning.run([stage])
       end)
 
-      expect result |> to eq "yes\n"
+      expect result |> to(eq "yes\n")
     end
   end
 
@@ -26,7 +26,7 @@ defmodule Mix.Tasks.Deployment.IsRunningSpec do
         Mix.Tasks.Deployment.IsRunning.run([stage])
       end)
 
-      expect result |> to eq "no\n"
+      expect result |> to(eq "no\n")
     end
   end
 
@@ -38,7 +38,7 @@ defmodule Mix.Tasks.Deployment.IsRunningSpec do
         Mix.Tasks.Deployment.IsRunning.run([stage])
       end)
 
-      expect result |> to eq "error\n"
+      expect result |> to(eq "error\n")
     end
   end
 end

@@ -24,10 +24,10 @@ defmodule Exdm.ConnectionSpec do
     it "runs a command via SSH" do
       {:ok, result} = Exdm.Connection.execute(stage, params)
 
-      expect System |> to accepted :cmd, [
+      expect System |> to(accepted :cmd, [
         "ssh", [user_and_host, "bash -lc \"foo\""]
-      ]
-      expect result |> to eq output
+      ])
+      expect result |> to(eq output)
     end
   end
 
@@ -46,12 +46,12 @@ defmodule Exdm.ConnectionSpec do
     it "uploads a file" do
       {:ok} = Exdm.Connection.upload(stage, local_pathname, remote_path)
 
-      expect System |> to accepted :cmd, [
+      expect System |> to(accepted :cmd, [
         "ssh", [user_and_host, "mkdir", "-p", remote_path]
-      ]
-      expect System |> to accepted :cmd, [
+      ])
+      expect System |> to(accepted :cmd, [
         "scp", [local_pathname, user_and_host <> ":" <> remote_path]
-      ]
+      ])
     end
   end
 end

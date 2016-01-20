@@ -21,7 +21,7 @@ defmodule Mix.Tasks.Deployment.CanDeploySpec do
         Mix.Tasks.Deployment.CanDeploy.run([stage])
       end)
 
-      expect result |> to eq "yes\n"
+      expect result |> to(eq "yes\n")
     end
   end
 
@@ -41,10 +41,10 @@ defmodule Mix.Tasks.Deployment.CanDeploySpec do
     it "prints 'no'" do
       result = capture_io(fn ->
         expect do: fn -> Mix.Tasks.Deployment.CanDeploy.run([stage]) end
-        |> to raise_exception
+        |> to(raise_exception)
       end)
 
-      expect result |> to eq "no\n"
+      expect result |> to(eq "no\n")
     end
   end
 end

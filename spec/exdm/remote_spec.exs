@@ -27,11 +27,11 @@ defmodule Exdm.RemoteSpec do
     it "returns the version running on the remote machine" do
       {:ok, version} = Exdm.Remote.get_version(stage)
 
-      expect Exdm.Connection |> to accepted :execute, [
+      expect Exdm.Connection |> to(accepted :execute, [
         stage, ssh_params
-      ]
+      ])
 
-      expect version |> to eq remote_version
+      expect version |> to(eq remote_version)
     end
   end
 end
