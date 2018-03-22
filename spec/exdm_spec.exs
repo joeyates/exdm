@@ -5,23 +5,23 @@ defmodule ExdmSpec do
     let :stage, do: :stage
     let :config, do: "config"
     let :application_path, do: "/remote/path"
-    let :boot_script_path, do: application_path <> "/bin/exdm"
-    let :releases_path, do: application_path <> "/releases"
+    let :boot_script_path, do: application_path() <> "/bin/exdm"
+    let :releases_path, do: application_path() <> "/releases"
     let :version, do: "0.1.2"
-    let :release_path, do: releases_path <> "/" <> version
-    let :local_tarball_path, do: "/local/path/release/" <> version <> ".tar.gz"
+    let :release_path, do: releases_path() <> "/" <> version()
+    let :local_tarball_path, do: "/local/path/release/" <> version() <> ".tar.gz"
     let :output, do: "output"
 
     before do
-      :meck.expect(Exdm.Config, :load!, fn _ -> config end)
-      :meck.expect(Exdm.Config, :application_path!, fn _ -> application_path end)
-      :meck.expect(Exdm.Local, :tarball_pathname, fn -> {:ok, local_tarball_path} end)
-      :meck.expect(Exdm.Local, :get_version, fn -> {:ok, version} end)
-      :meck.expect(Exdm.Remote, :releases_path!, fn _ -> releases_path end)
+      :meck.expect(Exdm.Config, :load!, fn _ -> config() end)
+      :meck.expect(Exdm.Config, :application_path!, fn _ -> application_path() end)
+      :meck.expect(Exdm.Local, :tarball_pathname, fn -> {:ok, local_tarball_path()} end)
+      :meck.expect(Exdm.Local, :get_version, fn -> {:ok, version()} end)
+      :meck.expect(Exdm.Remote, :releases_path!, fn _ -> releases_path() end)
       :meck.expect(Exdm.Connection, :upload, fn _, _, _ -> {:ok} end)
-      :meck.expect(Exdm.Connection, :execute, fn _, _ -> {:ok, output} end)
+      :meck.expect(Exdm.Connection, :execute, fn _, _ -> {:ok, output()} end)
 
-      Exdm.deploy(stage)
+      Exdm.deploy(stage())
     end
 
     finally do

@@ -6,15 +6,15 @@ defmodule Exdm.Mixfile do
   def project do
     [app: :exdm,
      version: @version,
-     elixir: "~> 1.0",
-     description: description,
-     package: package,
+     elixir: "~> 1.3",
+     description: description(),
+     package: package(),
      source_url: "https://github.com/joeyates/exdm",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      preferred_cli_env: [espec: :test],
      test_coverage: [tool: Coverex.Task, coveralls: true],
-     deps: deps]
+     deps: deps()]
   end
 
   def application do

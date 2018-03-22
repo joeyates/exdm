@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Deployment.RemoteSpec do
   let :remote_version, do: "0.2.3"
 
   before do
-    :meck.expect(Exdm.Remote, :get_version, fn _ -> {:ok, remote_version} end)
+    :meck.expect(Exdm.Remote, :get_version, fn _ -> {:ok, remote_version()} end)
   end
 
   finally do: :meck.unload(Exdm.Remote)
@@ -15,6 +15,6 @@ defmodule Mix.Tasks.Deployment.RemoteSpec do
       Mix.Tasks.Deployment.Remote.run(["stage"])
     end)
 
-    expect result |> to(eq remote_version <> "\n")
+    expect result |> to(eq remote_version() <> "\n")
   end
 end

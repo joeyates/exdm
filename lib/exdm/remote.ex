@@ -66,6 +66,6 @@ defmodule Exdm.Remote do
   end
 
   defp chomp(text) do
-    String.rstrip(text, ?\n)
+    String.trim_trailing(text)
   end
 end

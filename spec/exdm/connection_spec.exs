@@ -11,9 +11,9 @@ defmodule Exdm.ConnectionSpec do
 
   context "execute/2" do
     before do
-      :meck.expect(Exdm.Config, :load!, fn _ -> config end)
-      :meck.expect(Exdm.Config, :user_and_host, fn _ -> {:ok, user_and_host} end)
-      :meck.expect(System, :cmd, fn _, _ -> {output, 0} end)
+      :meck.expect(Exdm.Config, :load!, fn _ -> config() end)
+      :meck.expect(Exdm.Config, :user_and_host, fn _ -> {:ok, user_and_host()} end)
+      :meck.expect(System, :cmd, fn _, _ -> {output(), 0} end)
     end
 
     finally do
@@ -22,20 +22,20 @@ defmodule Exdm.ConnectionSpec do
     end
 
     it "runs a command via SSH" do
-      {:ok, result} = Exdm.Connection.execute(stage, params)
+      {:ok, result} = Exdm.Connection.execute(stage(), params())
 
       expect System |> to(accepted :cmd, [
-        "ssh", [user_and_host, "bash -lc \"foo\""]
+        "ssh", [user_and_host(), "bash -lc \"foo\""]
       ])
-      expect result |> to(eq output)
+      expect result |> to(eq output())
     end
   end
 
   context "upload/3" do
     before do
-      :meck.expect(Exdm.Config, :load!, fn _ -> config end)
-      :meck.expect(Exdm.Config, :user_and_host, fn _ -> {:ok, user_and_host} end)
-      :meck.expect(System, :cmd, fn _, _ -> {output, 0} end)
+      :meck.expect(Exdm.Config, :load!, fn _ -> config() end)
+      :meck.expect(Exdm.Config, :user_and_host, fn _ -> {:ok, user_and_host()} end)
+      :meck.expect(System, :cmd, fn _, _ -> {output(), 0} end)
     end
 
     finally do
@@ -44,13 +44,13 @@ defmodule Exdm.ConnectionSpec do
     end
 
     it "uploads a file" do
-      {:ok} = Exdm.Connection.upload(stage, local_pathname, remote_path)
+      {:ok} = Exdm.Connection.upload(stage(), local_pathname(), remote_path())
 
       expect System |> to(accepted :cmd, [
-        "ssh", [user_and_host, "mkdir", "-p", remote_path]
+        "ssh", [user_and_host, "mkdir", "-p", remote_path()]
       ])
       expect System |> to(accepted :cmd, [
-        "scp", [local_pathname, user_and_host <> ":" <> remote_path]
+        "scp", [local_pathname(), user_and_host() <> ":" <> remote_path()]
       ])
     end
   end

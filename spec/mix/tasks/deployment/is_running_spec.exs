@@ -11,7 +11,7 @@ defmodule Mix.Tasks.Deployment.IsRunningSpec do
 
     it "prints 'yes'" do
       result = capture_io(fn ->
-        Mix.Tasks.Deployment.IsRunning.run([stage])
+        Mix.Tasks.Deployment.IsRunning.run([stage()])
       end)
 
       expect result |> to(eq "yes\n")
@@ -23,7 +23,7 @@ defmodule Mix.Tasks.Deployment.IsRunningSpec do
 
     it "prints 'no'" do
       result = capture_io(fn ->
-        Mix.Tasks.Deployment.IsRunning.run([stage])
+        Mix.Tasks.Deployment.IsRunning.run([stage()])
       end)
 
       expect result |> to(eq "no\n")
@@ -35,7 +35,7 @@ defmodule Mix.Tasks.Deployment.IsRunningSpec do
 
     it "prints 'error'" do
       result = capture_io(fn ->
-        Mix.Tasks.Deployment.IsRunning.run([stage])
+        Mix.Tasks.Deployment.IsRunning.run([stage()])
       end)
 
       expect result |> to(eq "error\n")

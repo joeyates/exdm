@@ -6,9 +6,9 @@ defmodule Exdm do
 
   def deploy(stage) do
     config = Exdm.Config.load!(stage)
-    Exdm.Connection.upload(stage, release_tarball, remote_release_path!(config))
+    Exdm.Connection.upload(stage, release_tarball(), remote_release_path!(config))
     boot_script_path = Exdm.Remote.boot_script_path!(config)
-    Exdm.Connection.execute(stage, [boot_script_path, "upgrade", version])
+    Exdm.Connection.execute(stage, [boot_script_path, "upgrade", version()])
   end
 
   def application_name do
@@ -22,7 +22,7 @@ defmodule Exdm do
 
   defp remote_release_path!(config) do
     releases_path = Exdm.Remote.releases_path!(config)
-    releases_path <> "/" <> version
+    releases_path <> "/" <> version()
   end
 
   defp version do

@@ -7,7 +7,7 @@ defmodule Mix.Tasks.Deployment.CanDeploySpec do
 
   context "when the relup file transitions from the remote version to the local version" do
     before do
-      :meck.expect(Exdm.Remote, :get_version, fn _ -> {:ok, remote_version} end)
+      :meck.expect(Exdm.Remote, :get_version, fn _ -> {:ok, remote_version()} end)
       :meck.expect(Exdm.Local, :can_transition_from, fn _ -> {:ok} end)
     end
 
@@ -18,7 +18,7 @@ defmodule Mix.Tasks.Deployment.CanDeploySpec do
 
     it "prints yes" do
       result = capture_io(fn ->
-        Mix.Tasks.Deployment.CanDeploy.run([stage])
+        Mix.Tasks.Deployment.CanDeploy.run([stage()])
       end)
 
       expect result |> to(eq "yes\n")
@@ -29,8 +29,8 @@ defmodule Mix.Tasks.Deployment.CanDeploySpec do
     let :some_reason, do: "some_reason"
 
     before do
-      :meck.expect(Exdm.Remote, :get_version, fn _ -> {:ok, remote_version} end)
-      :meck.expect(Exdm.Local, :can_transition_from, fn _ -> {:error, some_reason} end)
+      :meck.expect(Exdm.Remote, :get_version, fn _ -> {:ok, remote_version()} end)
+      :meck.expect(Exdm.Local, :can_transition_from, fn _ -> {:error, some_reason()} end)
     end
 
     finally do
@@ -40,8 +40,8 @@ defmodule Mix.Tasks.Deployment.CanDeploySpec do
 
     it "prints 'no'" do
       result = capture_io(fn ->
-        expect do: fn -> Mix.Tasks.Deployment.CanDeploy.run([stage]) end
-        |> to(raise_exception)
+        expect do: fn -> Mix.Tasks.Deployment.CanDeploy.run([stage()]) end
+        |> to(raise_exception())
       end)
 
       expect result |> to(eq "no\n")

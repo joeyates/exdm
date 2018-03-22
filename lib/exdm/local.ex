@@ -11,13 +11,13 @@ defmodule Exdm.Local do
 
   def tarball_pathname do
     name = Exdm.application_name
-    {:ok, version} = get_version
+    {:ok, version} = get_version()
     path = Path.join([rel_dest_path([name, "releases"]), version, name <> ".tar.gz"])
     {:ok, path}
   end
 
   def can_transition_from(version) do
-    handle_relup(:file.consult(relup_path))
+    handle_relup(:file.consult(relup_path()))
     |> check_transition(version)
   end
 
