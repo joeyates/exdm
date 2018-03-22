@@ -1,7 +1,6 @@
 defmodule Exdm do
-
   @doc """
-  Deploys a local release, build with exrm, to the indicated stage.
+  Deploys a release, to the indicated stage.
   """
 
   def deploy(stage) do

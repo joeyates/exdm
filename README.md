@@ -7,26 +7,25 @@
 [Continuous Integration]: http://travis-ci.org/joeyates/exdm "Build status by Travis-CI"
 [Hex Package]: https://hex.pm/packages/exdm "Hex Package"
 
-exdm is intended to complement [exrm], by simplifying deployment of releases.
-
+exdm automates deployment of Elixir releases.
 
 It provides a set of mix tasks to deploy applications, check their status and
 start and stop them.
 
-Releases created by exrm are pushed to remote servers and applications can be upgraded.
+Releases are pushed to remote servers and applications can be upgraded.
 
 exdm allows the definition of multiple stages for your application, e.g.
 `production`, `staging` and `ci`.
 
-[exrm]: https://hexdocs.pm/exrm/extra-getting-started.html "exrm Documentation"
-
 # Usage
 
-Build the release using [exrm]:
+Build the release (i.e. with [distillery]):
 
 ```
 MIX_ENV=prod mix release
 ```
+
+[distillery]: https://github.com/bitwalker/distillery
 
 Deploy:
 
@@ -40,7 +39,7 @@ Add exdm to your deps in `mix.exs`:
 
 ```
 defp deps do
-  [{:exdm, "~> 0.0.1"}]
+  [{:exdm, "~> 0.0.3"}]
 end
 ```
 
@@ -73,3 +72,11 @@ Run tests:
 ```
 mix espec
 ```
+
+## License
+
+This project is MIT licensed. Please see the `LICENSE.md` file for more details.
+
+The file lib/release_manager/utils.ex is
+copied from the project exrm and is
+copyright (c) 2014 Paul Schoenfelder
